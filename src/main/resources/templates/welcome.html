@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot Thymeleaf Hello World Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" />
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Spring Boot</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="starter-template">
+			<h1>Spring Boot Web Thymeleaf Example</h1>
+			<form id="dataForm" action="#" onsubmit="submitForm()" th:object="${person}" method="post">
+				<table>
+					<tr>
+    					<td>First Name: <input type="text" th:field="${person.firstName}" th:value="${person.firstName}" /></td>
+        				<td>Last Name: <input type="text" th:field="${person.lastName}" th:value="${person.lastName}" /></td>
+        			</tr>
+        			 <tr th:each="phone, stat: ${person.phones}">
+        			 	<td> Phone Num: <input type="text" th:value="${person.phones[__${stat.index}__].number}"
+        			 		th:field="${person.phones[__${stat.index}__].number}"/></td>
+        			 	<td> Phone Type: <input type="text" th:value="${person.phones[__${stat.index}__].type}"
+        			 		th:field="${person.phones[__${stat.index}__].type}"/></td>
+        			 </tr>
+        		</table>
+        		<p><input type="submit" value="Submit" onclick="document.pressed=this.value"/></p>
+        		<p><input type="submit" value="Add New Row" onclick="document.pressed=this.value"/></p>
+    		</form>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		function submitForm(){
+			alert("in here");
+			var myForm = document.getElementById("dataForm");
+			if(document.pressed === 'Submit'){
+				myForm.action = 'saveUpdateData';
+			}else if(document.pressed === 'Add New Row'){
+				myForm.action = 'addRowData';
+			}
+			myForm.submit();
+		}
+	</script>
+
+</body>
+</html>
